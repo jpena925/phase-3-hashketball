@@ -1,4 +1,6 @@
 # Write your code below game_hash
+require "pry"
+
 def game_hash
   {
     home: {
@@ -127,3 +129,71 @@ def game_hash
 end
 
 # Write code here
+def num_points_scored(player)
+  game_hash.each do |location, team_data|
+    team_data[:players].each do |plyr|
+      if plyr[:player_name] == player
+        return plyr[:points]
+      end
+    end
+  end
+end
+
+def shoe_size(player)
+  game_hash.each do |location, team_data|
+    team_data[:players].each do |plyr|
+      if plyr[:player_name] == player
+        return plyr[:shoe]
+      end
+    end
+  end
+end
+
+def team_colors(team)
+  game_hash.each do |location, team_data|
+    if team_data[:team_name] == team
+      return team_data[:colors]
+    end
+  end
+end
+
+def team_names
+  game_hash.map do |location, team_data|
+    team_data[:team_name]
+  end
+end
+
+
+def player_numbers(team)
+    game_hash.each do |location, team_data|
+      if team_data[:team_name] == team
+        return team_data[:players].map {|plyr| plyr[:number]}
+      end
+    end
+end
+
+def player_stats(player)
+  game_hash.each do |location, team_data|
+    team_data[:players].each do |plyr|
+      if plyr[:player_name] == player
+        return plyr
+      end
+    end
+  end
+end
+
+def big_shoe_rebounds
+   shoe_size = 0
+   mr_big_shoe = {}
+   game_hash.each do |location, team_data|
+    team_data[:players].each do |plyr|
+      if plyr[:shoe] > shoe_size
+        shoe_size = plyr[:shoe]
+        mr_big_shoe = plyr
+        p mr_big_shoe
+      end
+    end
+  end
+  mr_big_shoe[:rebounds]
+
+end
